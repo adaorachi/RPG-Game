@@ -1,4 +1,5 @@
 import Spawner from './Spawner';
+import Utils from './utils';
 
 export default class GameManager {
   constructor(scene, mapData) {
@@ -19,16 +20,6 @@ export default class GameManager {
     this.spawnPlayer();
   }
 
-  // extractLocation(layer, location) {
-  //   layer.objects.forEach((obj) => {
-  //     if (location[obj.properties.spawner]) {
-  //       location[obj.properties.spawner].push([obj.x, obj.y]);
-  //     } else {
-  //       location[obj.properties.spawner] = [[obj.x, obj.y]];
-  //     }
-  //   });
-  // }
-
   parseMapData() {
     this.mapData.forEach((layer) => {
       if (layer.name === 'player_locations') {
@@ -36,21 +27,9 @@ export default class GameManager {
           this.playerLocations.push([obj.x, obj.y]);
         });
       } else if (layer.name === 'chest_locations') {
-        layer.objects.forEach((obj) => {
-          if (this.chestLocations[obj.properties.spawner]) {
-            this.chestLocations[obj.properties.spawner].push([obj.x, obj.y]);
-          } else {
-            this.chestLocations[obj.properties.spawner] = [[obj.x, obj.y]];
-          }
-        });
+        Utils.extractLocation(layer, this.chestLocations);
       } else if (layer.name === 'monster_locations') {
-        layer.objects.forEach((obj) => {
-          if (this.monsterLocations[obj.properties.spawner]) {
-            this.monsterLocations[obj.properties.spawner].push([obj.x, obj.y]);
-          } else {
-            this.monsterLocations[obj.properties.spawner] = [[obj.x, obj.y]];
-          }
-        });
+        Utils.extractLocation(layer, this.monsterLocations);
       }
     });
   }
@@ -63,7 +42,7 @@ export default class GameManager {
       const config = {
         spawnInterval: 3000,
         limit: 3,
-        spawnerType: 'CHEST',
+        spawnerType: Utils.spawnerType.CHEST,
         id: `chest-${key}`,
       };
 
@@ -81,6 +60,7 @@ export default class GameManager {
 
   addChest(chestId, chest) {
     this.chests[chestId] = chest;
+    console.log(chest);
   }
 
   deleteChest(chestId) {
