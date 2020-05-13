@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Player from '../classes/Player';
 import Chest from '../classes/Chest';
+import Monster from '../classes/Monster';
 import Map from '../classes/Map';
 import GameManager from '../game_manager/GameManager';
 
@@ -43,18 +44,52 @@ export default class GameScene extends Phaser.Scene {
 
   createGroups() {
     this.chests = this.physics.add.group();
+    this.monsters = this.physics.add.group();
   }
 
   spawnChest(chestObject) {
-    const chestDead = this.chests.getFirstDead();
-    if (!chestDead) {
-      const chest = new Chest(this, chestObject.x * 2, chestObject.y * 2, 'items', 0, chestObject.gold, chestObject.id);
+    let chest = this.chests.getFirstDead();
+    if (!chest) {
+      chest = new Chest(
+        this,
+        chestObject.x * 2,
+        chestObject.y * 2,
+        'items',
+        0,
+        chestObject.gold,
+        chestObject.id,
+      );
       this.chests.add(chest);
     } else {
-      chestDead.coins = chestObject.gold;
-      chestDead.id = chestObject.id;
-      chestDead.setPosition(chestObject.x * 2, chestObject.y * 2);
-      chestDead.makeActive();
+      chest.coins = chestObject.gold;
+      chest.id = chestObject.id;
+      chest.setPosition(chestObject.x * 2, chestObject.y * 2);
+      chest.makeActive();
+    }
+  }
+
+  spawnMonster(monsterObject) {
+    let monster = this.monsters.getFirstDead();
+    if (!monster) {
+      monster = new Monster(
+        this,
+        monsterObject.x * 2,
+        monsterObject.y * 2,
+        'monsters',
+        monsterObject.frame,
+        monsterObject.id,
+        monsterObject.health,
+        monsterObject.maxHealth,
+      );
+
+      this.monsters.add(monster);
+    } else {
+      monster.id = monsterObject.id;
+      monster.health = monsterObject.health;
+      monster.maxHealth = monsterObject.maxHealth;
+      monster.setTexture('monsters', monsterObject.frame);
+      monster.setPosition(monsterObject.x * 2, monsterObject.y * 2);
+      monster.makeActive();
     }
   }
 
@@ -65,6 +100,8 @@ export default class GameScene extends Phaser.Scene {
   addCollisions() {
     this.physics.add.collider(this.player, this.map.blockedLayer);
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
+    this.physics.add.collider(this.monsters, this.map.blockedLayer);
+    this.physics.add.overlap(this.player, this.monsters, this.enemyOverlap, null, this);
   }
 
   collectChest(player, chest) {
@@ -83,6 +120,10 @@ export default class GameScene extends Phaser.Scene {
 
     this.events.on('chestSpawned', (chest) => {
       this.spawnChest(chest);
+    });
+
+    this.events.on('monsterSpawned', (monster) => {
+      this.spawnMonster(monster);
     });
 
     this.gameManager = new GameManager(this, this.map.map.objects);

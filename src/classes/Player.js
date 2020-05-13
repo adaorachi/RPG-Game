@@ -7,6 +7,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.scene = scene;
     this.velocity = 160;
 
+    this.x = x;
+    this.y = y;
+
     this.scene.physics.world.enable(this);
     this.setScale(1.5);
     this.body.setCollideWorldBounds(true);

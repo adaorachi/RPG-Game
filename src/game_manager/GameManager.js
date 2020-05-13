@@ -8,6 +8,7 @@ export default class GameManager {
 
     this.spawners = {};
     this.chests = {};
+    this.monsters = {};
     this.playerLocations = [];
     this.chestLocations = {};
     this.monsterLocations = {};
@@ -43,15 +44,19 @@ export default class GameManager {
   }
 
   setupSpawners() {
-    Object.keys(this.chestLocations).forEach((key) => {
-      const config = {
-        spawnInterval: 3000,
-        limit: 20,
-        spawnerType: Utils.spawnerType.CHEST,
-        id: `chest-${key}`,
-      };
+    const config = {
+      spawnInterval: 3000,
+      limit: 3,
+      spawnerType: '',
+      id: '',
+    };
 
-      const spawner = new Spawner(
+    let spawner;
+
+    Object.keys(this.chestLocations).forEach((key) => {
+      config.id = `chest-${key}`;
+      config.spawnerType = Utils.spawnerType().CHEST;
+      spawner = new Spawner(
         config,
         this.chestLocations[key],
         this.addChest.bind(this),
@@ -62,14 +67,9 @@ export default class GameManager {
     });
 
     Object.keys(this.monsterLocations).forEach((key) => {
-      const config = {
-        spawnInterval: 3000,
-        limit: 20,
-        spawnerType: Utils.spawnerType.MONSTER,
-        id: `monster-${key}`,
-      };
-
-      const spawner = new Spawner(
+      config.id = `monster-${key}`;
+      config.spawnerType = Utils.spawnerType().MONSTER;
+      spawner = new Spawner(
         config,
         this.monsterLocations[key],
         this.addMonster.bind(this),
@@ -90,7 +90,7 @@ export default class GameManager {
   }
 
   addMonster(monsterId, monster) {
-    this.chests[monsterId] = monster;
+    this.monsters[monsterId] = monster;
     this.scene.events.emit('monsterSpawned', monster);
   }
 

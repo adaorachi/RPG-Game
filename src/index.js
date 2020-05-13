@@ -25,8 +25,8 @@ import UiScene from './scenes/UiScene';
 
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
+  width: 1340,
+  height: 630,
   scene: [
     BootScene,
     TitleScene,
