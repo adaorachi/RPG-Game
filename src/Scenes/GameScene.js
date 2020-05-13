@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Player from '../classes/Player';
 import Chest from '../classes/Chest';
 import Map from '../classes/Map';
+import GameManager from '../game_manager/GameManager';
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,8 @@ export default class GameScene extends Phaser.Scene {
     this.createPlayer();
     this.addCollisions();
     this.createInput();
+
+    this.createGameManager();
   }
 
   update() {
@@ -75,5 +78,10 @@ export default class GameScene extends Phaser.Scene {
     this.events.emit('updateScore', this.score);
     chest.makeInactive();
     this.time.delayedCall(1000, this.spawnChest, [], this);
+  }
+
+  createGameManager() {
+    this.gameManager = new GameManager(this, this.map.map.objects);
+    this.gameManager.setup();
   }
 }
