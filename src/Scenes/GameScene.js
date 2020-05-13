@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
-import Player from '../classes/Player';
+import PlayerContainer from '../classes/player/PlayerContainer';
 import Chest from '../classes/Chest';
 import Monster from '../classes/Monster';
 import Map from '../classes/Map';
 import GameManager from '../game_manager/GameManager';
+
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -39,7 +40,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createPlayer(location) {
-    this.player = new Player(this, location[0] * 2, location[1] * 2, 'characters', 0);
+    this.player = new PlayerContainer(this, location[0] * 2, location[1] * 2, 'characters', 0);
   }
 
   createGroups() {
@@ -102,6 +103,11 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
     this.physics.add.collider(this.monsters, this.map.blockedLayer);
     this.physics.add.overlap(this.player, this.monsters, this.enemyOverlap, null, this);
+  }
+
+  enemyOverlap(player, enemy) {
+    enemy.makeInactive();
+    this.events.emit('destroyEnemy', enemy.id);
   }
 
   collectChest(player, chest) {
