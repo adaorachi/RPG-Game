@@ -13,9 +13,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.createMap();
     this.createAudio();
     this.createChests();
-    this.createWalls();
     this.createPlayer();
     this.addCollisions();
     this.createInput();
@@ -25,12 +25,28 @@ export default class GameScene extends Phaser.Scene {
     this.player.update(this.cursors);
   }
 
+  createMap() {
+    this.map = this.make.tilemap({ key: 'map' });
+    this.tiles = this.map.addTilesetImage('background', 'background', 32, 32, 1, 2);
+    this.backgroundLayer = this.map.createStaticLayer('background', this.tiles, 0, 0);
+    this.backgroundLayer.setScale(2);
+    this.blockedLayer = this.map.createStaticLayer('blocked', this.tiles, 0, 0);
+    this.blockedLayer.setScale(2);
+
+    this.physics.world.bounds.width = this.map.widthInPixels * 2;
+    this.physics.world.bounds.height = this.map.heightInPixels * 2;
+
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels * 2, this.map.heightInPixels * 2);
+
+    this.blockedLayer.setCollisionByExclusion([-1]);
+  }
+
   createAudio() {
     this.goldPickUpAudio = this.sound.add('goldSound');
   }
 
   createPlayer() {
-    this.player = new Player(this, 32, 32, 'characters', 0);
+    this.player = new Player(this, 224, 224, 'characters', 0);
   }
 
   createChests() {
@@ -50,14 +66,9 @@ export default class GameScene extends Phaser.Scene {
       this.chest = new Chest(this, location[0], location[1], 'items', 0);
       this.chests.add(this.chest);
     } else {
-      chest.setPositions(location[0], location[1]);
+      chest.setPosition(location[0], location[1]);
       chest.makeActive();
     }
-  }
-
-  createWalls() {
-    this.wall = this.physics.add.image(500, 100, 'button1');
-    this.wall.setImmovable();
   }
 
   createInput() {
@@ -65,7 +76,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addCollisions() {
-    this.physics.add.collider(this.player, this.wall);
+    this.physics.add.collider(this.player, this.blockedLayer);
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
   }
 
