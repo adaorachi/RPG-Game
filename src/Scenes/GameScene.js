@@ -13,7 +13,6 @@ export default class GameScene extends Phaser.Scene {
 
   init() {
     this.scene.launch('Ui');
-    this.score = 0;
   }
 
   create() {
@@ -39,8 +38,17 @@ export default class GameScene extends Phaser.Scene {
     this.goldPickUpAudio = this.sound.add('goldSound');
   }
 
-  createPlayer(location) {
-    this.player = new PlayerContainer(this, location[0] * 2, location[1] * 2, 'characters', 0);
+  createPlayer(playerObject) {
+    this.player = new PlayerContainer(
+      this,
+      playerObject.x * 2,
+      playerObject.y * 2,
+      'characters',
+      0,
+      playerObject.health,
+      playerObject.maxHealth,
+      playerObject.id,
+    );
   }
 
   createGroups() {
@@ -114,15 +122,12 @@ export default class GameScene extends Phaser.Scene {
 
   collectChest(player, chest) {
     this.goldPickUpAudio.play();
-    this.score += chest.coins;
-    this.events.emit('updateScore', this.score);
-    chest.makeInactive();
-    this.events.emit('pickUpChest', chest.id);
+    this.events.emit('pickUpChest', chest.id, player.id);
   }
 
   createGameManager() {
-    this.events.on('spawnPlayer', (location) => {
-      this.createPlayer(location);
+    this.events.on('spawnPlayer', (playerObject) => {
+      this.createPlayer(playerObject);
       this.addCollisions();
     });
 
@@ -132,6 +137,14 @@ export default class GameScene extends Phaser.Scene {
 
     this.events.on('monsterSpawned', (monster) => {
       this.spawnMonster(monster);
+    });
+
+    this.events.on('chestRemoved', (chestId) => {
+      this.chests.getChildren().forEach((chest) => {
+        if (chest.id === chestId) {
+          chest.makeInactive();
+        }
+      });
     });
 
     this.events.on('monsterRemoved', (monsterId) => {

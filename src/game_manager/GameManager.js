@@ -1,5 +1,6 @@
 import Spawner from './Spawner';
 import Utils from './utils';
+import PlayerModel from './PlayerModel';
 
 export default class GameManager {
   constructor(scene, mapData) {
@@ -9,6 +10,7 @@ export default class GameManager {
     this.spawners = {};
     this.chests = {};
     this.monsters = {};
+    this.players = {};
     this.playerLocations = [];
     this.chestLocations = {};
     this.monsterLocations = {};
@@ -36,9 +38,14 @@ export default class GameManager {
   }
 
   setupEventListener() {
-    this.scene.events.on('pickUpChest', (chestId) => {
+    this.scene.events.on('pickUpChest', (chestId, playerId) => {
       if (this.chests[chestId]) {
+        const { gold } = this.chests[chestId];
+        this.players[playerId].updateGold(gold);
+        this.scene.events.emit('updateScore', this.players[playerId].gold);
+
         this.spawners[this.chests[chestId].spawnerId].removeObject(chestId);
+        this.scene.events.emit('chestRemoved', chestId);
       }
     });
 
@@ -111,7 +118,8 @@ export default class GameManager {
   }
 
   spawnPlayer() {
-    const location = this.playerLocations[Math.floor(Math.random() * this.playerLocations.length)];
-    this.scene.events.emit('spawnPlayer', location);
+    const player = new PlayerModel(this.playerLocations);
+    this.players[player.id] = player;
+    this.scene.events.emit('spawnPlayer', player);
   }
 }
