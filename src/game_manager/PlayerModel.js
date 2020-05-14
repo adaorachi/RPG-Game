@@ -15,4 +15,15 @@ export default class PlayerModel {
   updateGold(gold) {
     this.gold += gold;
   }
+
+  updateHealth(health) {
+    this.health += health;
+    if (this.health > 10) this.health = 10;
+  }
+
+  respawn() {
+    this.health = this.maxHealth;
+    const location = this.spawnLocations[Math.floor(Math.random() * this.spawnLocations.length)];
+    [this.x, this.y] = location;
+  }
 }

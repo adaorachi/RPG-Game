@@ -49,14 +49,34 @@ export default class GameManager {
       }
     });
 
-    this.scene.events.on('monsterAttacked', (monsterId) => {
+    this.scene.events.on('monsterAttacked', (monsterId, playerId) => {
       if (this.monsters[monsterId]) {
+        const { gold, attack } = this.monsters[monsterId];
         this.monsters[monsterId].loseHealth();
         if (this.monsters[monsterId].health <= 0) {
+          this.players[playerId].updateGold(gold);
+          this.scene.events.emit('updateScore', this.players[playerId].gold);
+
           this.spawners[this.monsters[monsterId].spawnerId].removeObject(monsterId);
           this.scene.events.emit('monsterRemoved', monsterId);
+
+          this.players[playerId].updateHealth(2);
+          this.scene.events.emit('updatePlayerHealth', playerId, this.players[playerId].health);
+
         } else {
+          this.players[playerId].updateHealth(-attack);
+
+          this.scene.events.emit('updatePlayerHealth', playerId, this.players[playerId].health);
+
           this.scene.events.emit('updateMonsterHealth', monsterId, this.monsters[monsterId].health);
+
+          if (this.players[playerId].health <= 0) {
+            this.players[playerId].updateGold(parseInt(-this.players[playerId].gold / 2, 10), 10);
+            this.scene.events.emit('updateScore', this.players[playerId].gold);
+
+            this.players[playerId].respawn();
+            this.scene.events.emit('respawnPlayer', this.players[playerId]);
+          }
         }
       }
     });
@@ -93,6 +113,7 @@ export default class GameManager {
         this.monsterLocations[key],
         this.addMonster.bind(this),
         this.deleteMonster.bind(this),
+        this.moveMonsters.bind(this),
       );
 
       this.spawners[spawner.id] = spawner;
@@ -121,5 +142,9 @@ export default class GameManager {
     const player = new PlayerModel(this.playerLocations);
     this.players[player.id] = player;
     this.scene.events.emit('spawnPlayer', player);
+  }
+
+  moveMonsters() {
+    this.scene.events.emit('monsterMovement', this.monsters);
   }
 }
