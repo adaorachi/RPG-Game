@@ -16,7 +16,19 @@ const Utils = (() => {
 
   const randomNumber = (min, max) => Math.floor(Math.random() * max) + min;
 
-  return { extractLocation, spawnerType, randomNumber };
+  const playerDirection = () => ({
+    RIGHT: 'RIGHT',
+    LEFT: 'LEFT',
+    UP: 'UP',
+    DOWN: 'DOWN',
+  });
+
+  return {
+    extractLocation,
+    spawnerType,
+    randomNumber,
+    playerDirection,
+  };
 })();
 
 module.exports = Utils;

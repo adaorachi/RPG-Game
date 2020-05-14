@@ -8,8 +8,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.scene.physics.world.enable(this);
     this.setImmovable(true);
-    this.setScale(1.7);
+    this.setScale(2);
     this.scene.add.existing(this);
   }
-
 }
