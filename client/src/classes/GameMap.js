@@ -1,4 +1,4 @@
-export default class Map {
+export default class GameMap {
   constructor(scene, key, titleSetName, bgLayerName, blockedLayerName) {
     this.scene = scene;
     this.key = key;
