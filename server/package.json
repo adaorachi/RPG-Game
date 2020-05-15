@@ -1,7 +1,7 @@
 {
   "name": "rest_api",
   "version": "1.0.0",
-  "description": "Zenva REST API",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -28,7 +28,8 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "socket.io": "^2.2.0",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "uuidv4": "^6.0.8"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
