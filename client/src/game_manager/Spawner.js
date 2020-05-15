@@ -1,6 +1,6 @@
+import { SpawnerType, randomNumber } from './utils';
 import ChestModel from './ChestModel';
 import MonsterModel from './MonsterModel';
-import Utils from './utils';
 
 export default class Spawner {
   constructor(config, spawnLocations, addObject, deleteObject, moveObjects) {
@@ -20,24 +20,24 @@ export default class Spawner {
 
   start() {
     this.interval = setInterval(() => {
-      if (this.objectsCreated < this.limit) {
+      if (this.objectsCreated.length < this.limit) {
         this.spawnObject();
       }
     }, this.spawnInterval);
-    if (this.objectType === Utils.spawnerType().MONSTER) { this.moveMonsters(); }
+    if (this.objectType === SpawnerType.MONSTER) this.moveMonsters();
   }
 
   spawnObject() {
-    if (this.objectType === Utils.spawnerType().CHEST) {
+    if (this.objectType === SpawnerType.CHEST) {
       this.spawnChest();
-    } else if (this.objectType === Utils.spawnerType().MONSTER) {
+    } else if (this.objectType === SpawnerType.MONSTER) {
       this.spawnMonster();
     }
   }
 
   spawnChest() {
     const location = this.pickRandomLocation();
-    const chest = new ChestModel(location[0], location[1], Utils.randomNumber(10, 20), this.id);
+    const chest = new ChestModel(location[0], location[1], randomNumber(10, 20), this.id);
     this.objectsCreated.push(chest);
     this.addObject(chest.id, chest);
   }
@@ -47,10 +47,10 @@ export default class Spawner {
     const monster = new MonsterModel(
       location[0],
       location[1],
-      Utils.randomNumber(10, 20),
+      randomNumber(10, 20),
       this.id,
-      Utils.randomNumber(0, 20),
-      Utils.randomNumber(3, 5),
+      randomNumber(0, 20),
+      randomNumber(3, 5),
       1,
     );
     this.objectsCreated.push(monster);
@@ -65,6 +65,7 @@ export default class Spawner {
       }
       return false;
     });
+
     if (invalidLocation) return this.pickRandomLocation();
     return location;
   }
@@ -79,6 +80,7 @@ export default class Spawner {
       this.objectsCreated.forEach((monster) => {
         monster.move();
       });
+
       this.moveObjects();
     }, 1000);
   }

@@ -1,35 +1,41 @@
 import Phaser from 'phaser';
-
 import Player from './Player';
-import Utils from '../../game_manager/utils';
+import Direction from '../../utils/direction';
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio) {
+  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio, mainPlayer) {
     super(scene, x, y);
-
-    this.scene = scene;
-    this.velocity = 160;
-
-    this.currentDirection = Utils.playerDirection().RIGHT;
+    this.scene = scene; // the scene this container will be added to
+    this.velocity = 160; // the velocity when moving our player
+    this.currentDirection = Direction.RIGHT;
     this.playerAttacking = false;
     this.flipX = true;
     this.swordHit = false;
-
     this.health = health;
     this.maxHealth = maxHealth;
     this.id = id;
     this.attackAudio = attackAudio;
+    this.mainPlayer = mainPlayer;
 
+    // set a size on the container
     this.setSize(64, 64);
-
+    // enable physics
     this.scene.physics.world.enable(this);
+    // collide with world bounds
     this.body.setCollideWorldBounds(true);
+    // add the player container to our existing scene
     this.scene.add.existing(this);
-    this.scene.cameras.main.startFollow(this);
 
+    if (this.mainPlayer) {
+      // have the camera follow the player
+      this.scene.cameras.main.startFollow(this);
+    }
+
+    // create the player
     this.player = new Player(this.scene, 0, 0, key, frame);
     this.add(this.player);
 
+    // create the weapon game object
     this.weapon = this.scene.add.image(40, 0, 'items', 4);
     this.scene.add.existing(this.weapon);
     this.weapon.setScale(1.5);
@@ -37,6 +43,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.add(this.weapon);
     this.weapon.alpha = 0;
 
+    // create the player healthbar
     this.createHealthBar();
   }
 
@@ -66,42 +73,47 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
   respawn(playerObject) {
     this.health = playerObject.health;
-    this.setPosition(playerObject.x * 2, playerObject.y * 2);
+    this.setPosition(playerObject.x, playerObject.y);
     this.updateHealthBar();
   }
 
   update(cursors) {
     this.body.setVelocity(0);
 
-    if (cursors.left.isDown) {
-      this.body.setVelocityX(-this.velocity);
-      this.currentDirection = Utils.playerDirection().LEFT;
-      this.weapon.setPosition(-40, 0);
-      this.player.flipX = false;
-    } else if (cursors.right.isDown) {
-      this.body.setVelocityX(this.velocity);
-      this.currentDirection = Utils.playerDirection().RIGHT;
-      this.weapon.setPosition(40, 0);
-      this.player.flipX = true;
-    } else if (cursors.up.isDown) {
-      this.body.setVelocityY(-this.velocity);
-      this.currentDirection = Utils.playerDirection().UP;
-      this.weapon.setPosition(0, -40);
-    } else if (cursors.down.isDown) {
-      this.body.setVelocityY(this.velocity);
-      this.currentDirection = Utils.playerDirection().DOWN;
-      this.weapon.setPosition(0, 40);
+    if (this.mainPlayer) {
+      if (cursors.left.isDown) {
+        this.body.setVelocityX(-this.velocity);
+        this.currentDirection = Direction.LEFT;
+        this.player.flipX = false;
+        this.flipX = false;
+      } else if (cursors.right.isDown) {
+        this.body.setVelocityX(this.velocity);
+        this.currentDirection = Direction.RIGHT;
+        this.player.flipX = true;
+        this.flipX = true;
+      }
+
+      if (cursors.up.isDown) {
+        this.body.setVelocityY(-this.velocity);
+        this.currentDirection = Direction.UP;
+      } else if (cursors.down.isDown) {
+        this.body.setVelocityY(this.velocity);
+        this.currentDirection = Direction.DOWN;
+      }
+
+      if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.playerAttacking) {
+        this.attack();
+      }
     }
 
-    if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.playerAttacking) {
-      this.weapon.alpha = 1;
-      this.playerAttacking = true;
-      this.attackAudio.play();
-      this.scene.time.delayedCall(150, () => {
-        this.weapon.alpha = 0;
-        this.playerAttacking = false;
-        this.swordHit = false;
-      }, [], this);
+    if (this.currentDirection === Direction.UP) {
+      this.weapon.setPosition(0, -40);
+    } else if (this.currentDirection === Direction.DOWN) {
+      this.weapon.setPosition(0, 40);
+    } else if (this.currentDirection === Direction.LEFT) {
+      this.weapon.setPosition(-40, 0);
+    } else if (this.currentDirection === Direction.RIGHT) {
+      this.weapon.setPosition(40, 0);
     }
 
     if (this.playerAttacking) {
@@ -111,21 +123,41 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
         this.weapon.angle += 10;
       }
     } else {
-      // eslint-disable-next-line no-lonely-if
-      if (this.currentDirection === Utils.playerDirection().DOWN) {
+      if (this.currentDirection === Direction.DOWN) {
         this.weapon.setAngle(-270);
-      } else if (this.currentDirection === Utils.playerDirection().UP) {
+      } else if (this.currentDirection === Direction.UP) {
         this.weapon.setAngle(-90);
       } else {
         this.weapon.setAngle(0);
       }
 
       this.weapon.flipX = false;
-      if (this.currentDirection === Utils.playerDirection().LEFT) {
+      if (this.currentDirection === Direction.LEFT) {
         this.weapon.flipX = true;
       }
     }
 
     this.updateHealthBar();
+  }
+
+  updateFlipX() {
+    this.player.flipX = this.flipX;
+  }
+
+  attack() {
+    this.weapon.alpha = 1;
+    this.playerAttacking = true;
+    if (this.mainPlayer) this.attackAudio.play();
+    this.scene.time.delayedCall(150, () => {
+      this.weapon.alpha = 0;
+      this.playerAttacking = false;
+      this.swordHit = false;
+    }, [], this);
+  }
+
+  cleanUp() {
+    this.healthBar.destroy();
+    this.player.destroy();
+    this.destroy();
   }
 }
