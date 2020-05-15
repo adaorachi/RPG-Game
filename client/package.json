@@ -25,6 +25,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14",
     "phaser": "^3.23.0",
     "uuidv4": "^6.0.8"
   }

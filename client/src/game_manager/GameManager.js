@@ -62,7 +62,6 @@ export default class GameManager {
 
           this.players[playerId].updateHealth(2);
           this.scene.events.emit('updatePlayerHealth', playerId, this.players[playerId].health);
-
         } else {
           this.players[playerId].updateHealth(-attack);
 
@@ -71,7 +70,7 @@ export default class GameManager {
           this.scene.events.emit('updateMonsterHealth', monsterId, this.monsters[monsterId].health);
 
           if (this.players[playerId].health <= 0) {
-            this.players[playerId].updateGold(parseInt(-this.players[playerId].gold / 2, 10), 10);
+            this.players[playerId].updateGold(parseInt(-this.players[playerId].gold / 2, 10));
             this.scene.events.emit('updateScore', this.players[playerId].gold);
 
             this.players[playerId].respawn();
