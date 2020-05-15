@@ -12,11 +12,16 @@ export default class GameScene extends Phaser.Scene {
 
   init() {
     this.scene.launch('Ui');
+
+    // get a reference to our socket
     this.socket = this.sys.game.globals.socket;
+
+    // listen for socket event
     this.listenForSocketEvents();
   }
 
   listenForSocketEvents() {
+    // spawn player game objects
     this.socket.on('currentPlayers', (players) => {
       Object.keys(players).forEach((id) => {
         if (players[id].id === this.socket.id) {
@@ -28,20 +33,21 @@ export default class GameScene extends Phaser.Scene {
       });
     });
 
+    // spawn monster game objects
     this.socket.on('currentMonsters', (monsters) => {
       Object.keys(monsters).forEach((id) => {
         this.spawnMonster(monsters[id]);
       });
     });
 
-
+    // spawn chest game objects
     this.socket.on('currentChests', (chests) => {
       Object.keys(chests).forEach((id) => {
         this.spawnChest(chests[id]);
       });
     });
 
-
+    // spawn player game object
     this.socket.on('spawnPlayer', (player) => {
       this.createPlayer(player, false);
     });
