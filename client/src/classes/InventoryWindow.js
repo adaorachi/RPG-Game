@@ -173,5 +173,59 @@ export default class InventoryWindow extends ModalWindow {
     }
   }
 
+  hideInventoryItem(itemNumber) {
+    this.inventoryItems[itemNumber].item.setAlpha(0);
+    this.inventoryItems[itemNumber].discardButton.setAlpha(0);
+    this.inventoryItems[itemNumber].itemName.setAlpha(0);
+    this.inventoryItems[itemNumber].attackIcon.setAlpha(0);
+    this.inventoryItems[itemNumber].attackIconText.setAlpha(0);
+    this.inventoryItems[itemNumber].defenseIcon.setAlpha(0);
+    this.inventoryItems[itemNumber].defenseIconText.setAlpha(0);
+    this.inventoryItems[itemNumber].healthIcon.setAlpha(0);
+    this.inventoryItems[itemNumber].healthIconText.setAlpha(0);
+  }
+
+  showInventoryItem(itemNumber) {
+    this.inventoryItems[itemNumber].item.setAlpha(1);
+    this.inventoryItems[itemNumber].itemName.setAlpha(1);
+    this.inventoryItems[itemNumber].attackIcon.setAlpha(1);
+    this.inventoryItems[itemNumber].attackIconText.setAlpha(1);
+    this.inventoryItems[itemNumber].defenseIcon.setAlpha(1);
+    this.inventoryItems[itemNumber].defenseIconText.setAlpha(1);
+    this.inventoryItems[itemNumber].healthIcon.setAlpha(1);
+    this.inventoryItems[itemNumber].healthIconText.setAlpha(1);
+
+    if (this.mainPlayer) {
+      this.inventoryItems[itemNumber].discardButton.setAlpha(1);
+    } else {
+      this.inventoryItems[itemNumber].discardButton.setAlpha(0);
+    }
+  }
+
+  updateInventoryItem(item, itemNumber) {
+    this.inventoryItems[itemNumber].item.setFrame(item.frame);
+    this.inventoryItems[itemNumber].itemName.setText(item.name);
+    this.inventoryItems[itemNumber].attackIconText.setText(item.attackBonus);
+    this.inventoryItems[itemNumber].defenseIconText.setText(item.defenseBonus);
+    this.inventoryItems[itemNumber].healthIconText.setText(item.healthBonus);
+
+    if (item.attackBonus > 0) {
+      this.inventoryItems[itemNumber].attackIconText.setFill('#00ff00');
+    } else {
+      this.inventoryItems[itemNumber].attackIconText.setFill('#ff0000');
+    }
+    if (item.defenseBonus > 0) {
+      this.inventoryItems[itemNumber].defenseIconText.setFill('#00ff00');
+    } else {
+      this.inventoryItems[itemNumber].defenseIconText.setFill('#ff0000');
+    }
+    if (item.healthBonus > 0) {
+      this.inventoryItems[itemNumber].healthIconText.setFill('#00ff00');
+    } else {
+      this.inventoryItems[itemNumber].healthIconText.setFill('#ff0000');
+    }
+
+    this.showInventoryItem(itemNumber);
+  }
 
 }
