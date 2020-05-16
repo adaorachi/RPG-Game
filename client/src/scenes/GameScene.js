@@ -104,6 +104,14 @@ export default class GameScene extends Phaser.Scene {
       });
     });
 
+    this.socket.on('updatePlayersScore', (playerId, goldAmount) => {
+      this.otherPlayers.getChildren().forEach((otherPlayer) => {
+        if (playerId === otherPlayer.id) {
+          otherPlayer.gold = goldAmount;
+        }
+      });
+    });
+
     this.socket.on('updateScore', (goldAmount) => {
       this.events.emit('updateScore', goldAmount);
     });
