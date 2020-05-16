@@ -187,4 +187,16 @@ export default class DialogWindow {
 
     this.redrawWindow();
   }
+
+  createInput() {
+    this.input = createInputField('text', 'chatInput', 'chatInput', 'chat-input chat-invisible');
+
+    if (this.x < 560) {
+      this.input.classList.add('chat-bottom');
+    } else {
+      this.input.classList.add('chat-sidebar');
+    }
+
+    document.body.appendChild(this.input);
+  }
 }
