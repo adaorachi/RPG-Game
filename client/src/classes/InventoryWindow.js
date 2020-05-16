@@ -68,4 +68,19 @@ export default class InventoryWindow extends ModalWindow {
     }
   }
 
+
+
+  resize(gameSize) {
+    if (gameSize.width < 750) {
+      this.windowWidth = this.scene.scale.width - 80;
+      this.windowHeight = this.scene.scale.height - 80;
+    } else {
+      this.windowWidth = this.scene.scale.width / 2;
+      this.windowHeight = this.scene.scale.height * 0.8;
+    }
+
+    this.redrawWindow();
+  }
+
+
 }
