@@ -1,10 +1,10 @@
 import * as Phaser from 'phaser';
 import Player from './Player';
-import PlayerModel from '../../game_manager/PlayerModel';
 import Direction from '../../utils/direction';
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio, mainPlayer, playerName) {
+  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio, mainPlayer, playerName,
+    gold, defenseValue, attackValue, items) {
     super(scene, x, y);
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // the velocity when moving our player
@@ -18,7 +18,11 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.attackAudio = attackAudio;
     this.mainPlayer = mainPlayer;
     this.playerName = playerName;
-    console.log(this.playerName)
+    this.gold = gold;
+    this.defenseValue = defenseValue;
+    this.attackValue = attackValue;
+    this.items = items;
+
     // set a size on the container
     this.setSize(64, 64);
     // enable physics
@@ -76,15 +80,9 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   updateHealthBar() {
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 1);
-    this.healthBar.fillRect(this.x - 32, this.y - 40, 64, 10);
-    const remainingHealth = 64 * (this.health / this.maxHealth);
-
-    if (this.health <= 4) {
-      this.healthBar.fillGradientStyle(0xff0000, 0xffffff, 4);
-    } else {
-      this.healthBar.fillGradientStyle(0x37823c, 0xffffff, 4);
-    }
-    this.healthBar.fillRect(this.x - 32, this.y - 40, remainingHealth, 10);
+    this.healthBar.fillRect(this.x - 32, this.y - 40, 64, 5);
+    this.healthBar.fillGradientStyle(0xff0000, 0xffffff, 4);
+    this.healthBar.fillRect(this.x - 32, this.y - 40, 64 * (this.health / this.maxHealth), 5);
   }
 
   updateHealth(health) {
@@ -97,22 +95,6 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.setPosition(playerObject.x, playerObject.y);
     this.updateHealthBar();
     this.updatePlayerNamePosition();
-
-    const getStats = window.localStorage.getItem('playerStats');
-    if (getStats === null) {
-      const playerStats = {};
-      const score = 0;
-      const name = this.playerName;
-      playerStats[name] = { score: `${score}` };
-      window.localStorage.setItem('playerStats', JSON.stringify(playerStats));
-    } else {
-      const stats = JSON.parse(window.localStorage.getItem('playerStats'));
-      const score = 0;
-      const name = this.playerName;
-      stats[name] = { score: `${score}` };
-      window.localStorage.setItem('playerStats', JSON.stringify(stats));
-    }
-
   }
 
   update(cursors) {
@@ -195,21 +177,6 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   }
 
   cleanUp() {
-    const getStats = window.localStorage.getItem('playerStats');
-    if (getStats === null) {
-      const playerStats = {};
-      const score = 0;
-      const name = this.playerName;
-      playerStats[name] = { score: `${score}` };
-      window.localStorage.setItem('playerStats', JSON.stringify(playerStats));
-    } else {
-      const stats = JSON.parse(window.localStorage.getItem('playerStats'));
-      const score = 0;
-      const name = this.playerName;
-      stats[name] = { score: `${score}` };
-      window.localStorage.setItem('playerStats', JSON.stringify(stats));
-    }
-
     this.healthBar.destroy();
     this.playerNameText.destroy();
     this.player.destroy();

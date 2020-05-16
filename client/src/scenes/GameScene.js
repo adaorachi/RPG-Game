@@ -152,9 +152,33 @@ export default class GameScene extends Phaser.Scene {
       });
     });
 
+    this.socket.on('newMessage', (messageObject) => {
+      this.dialogWindow.addNewMessage(messageObject);
+    });
+
     this.socket.on('invalidToken', () => {
       window.alert('Token is no longer valid. Please login again.');
       window.location.reload();
+    });
+
+    this.socket.on('updateItems', (playerObject) => {
+      this.player.items = playerObject.playerItems;
+      this.player.maxHealth = playerObject.maxHealth;
+      this.player.attackValue = playerObject.attack;
+      this.player.defenseValue = playerObject.defense;
+      this.player.updateHealthBar();
+    });
+
+    this.socket.on('updatePlayersItems', (playerId, playerObject) => {
+      this.otherPlayers.getChildren().forEach((otherPlayer) => {
+        if (playerId === otherPlayer.id) {
+          otherPlayer.items = playerObject.playerItems;
+          otherPlayer.maxHealth = playerObject.maxHealth;
+          otherPlayer.attackValue = playerObject.attack;
+          otherPlayer.defenseValue = playerObject.defense;
+          otherPlayer.updateHealthBar();
+        }
+      });
     });
   }
 
