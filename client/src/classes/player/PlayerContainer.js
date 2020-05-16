@@ -1,9 +1,10 @@
 import * as Phaser from 'phaser';
 import Player from './Player';
+import PlayerModel from '../../game_manager/PlayerModel';
 import Direction from '../../utils/direction';
 
 export default class PlayerContainer extends Phaser.GameObjects.Container {
-  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio, mainPlayer) {
+  constructor(scene, x, y, key, frame, health, maxHealth, id, attackAudio, mainPlayer, playerName) {
     super(scene, x, y);
     this.scene = scene; // the scene this container will be added to
     this.velocity = 160; // the velocity when moving our player
@@ -16,7 +17,8 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.id = id;
     this.attackAudio = attackAudio;
     this.mainPlayer = mainPlayer;
-
+    this.playerName = playerName;
+    console.log(this.playerName)
     // set a size on the container
     this.setSize(64, 64);
     // enable physics
@@ -45,6 +47,25 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
 
     // create the player healthbar
     this.createHealthBar();
+
+    // create the player name
+    this.createPlayerName();
+  }
+
+  createPlayerName() {
+    this.playerNameText = this.scene.make.text({
+      x: this.x - 32,
+      y: this.y - 60,
+      text: this.playerName,
+      style: {
+        font: '14px monospace',
+        fill: '#ffffff',
+      },
+    });
+  }
+
+  updatePlayerNamePosition() {
+    this.playerNameText.setPosition(this.x - 32, this.y - 60);
   }
 
   createHealthBar() {
@@ -75,6 +96,23 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.health = playerObject.health;
     this.setPosition(playerObject.x, playerObject.y);
     this.updateHealthBar();
+    this.updatePlayerNamePosition();
+
+    const getStats = window.localStorage.getItem('playerStats');
+    if (getStats === null) {
+      const playerStats = {};
+      const score = 0;
+      const name = this.playerName;
+      playerStats[name] = { score: `${score}` };
+      window.localStorage.setItem('playerStats', JSON.stringify(playerStats));
+    } else {
+      const stats = JSON.parse(window.localStorage.getItem('playerStats'));
+      const score = 0;
+      const name = this.playerName;
+      stats[name] = { score: `${score}` };
+      window.localStorage.setItem('playerStats', JSON.stringify(stats));
+    }
+
   }
 
   update(cursors) {
@@ -138,6 +176,7 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     }
 
     this.updateHealthBar();
+    this.updatePlayerNamePosition();
   }
 
   updateFlipX() {
@@ -156,7 +195,23 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   }
 
   cleanUp() {
+    const getStats = window.localStorage.getItem('playerStats');
+    if (getStats === null) {
+      const playerStats = {};
+      const score = 0;
+      const name = this.playerName;
+      playerStats[name] = { score: `${score}` };
+      window.localStorage.setItem('playerStats', JSON.stringify(playerStats));
+    } else {
+      const stats = JSON.parse(window.localStorage.getItem('playerStats'));
+      const score = 0;
+      const name = this.playerName;
+      stats[name] = { score: `${score}` };
+      window.localStorage.setItem('playerStats', JSON.stringify(stats));
+    }
+
     this.healthBar.destroy();
+    this.playerNameText.destroy();
     this.player.destroy();
     this.destroy();
   }

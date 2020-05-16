@@ -203,17 +203,19 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createPlayer(playerObject, mainPlayer) {
+    console.log(playerObject)
     const newPlayerGameObject = new PlayerContainer(
       this,
       playerObject.x * 2,
       playerObject.y * 2,
       'characters',
-      0,
+      playerObject.frame,
       playerObject.health,
       playerObject.maxHealth,
       playerObject.id,
       this.playerAttackAudio,
       mainPlayer,
+      playerObject.playerName,
     );
 
     if (!mainPlayer) {
