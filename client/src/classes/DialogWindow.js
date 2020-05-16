@@ -83,4 +83,38 @@ export default class DialogWindow {
     }
   }
 
+  update() {
+    // update the dialog window if the main world view has changed
+    if (this.scene.cameras.main.worldView.x > 0 || this.scene.cameras.main.worldView.y > 0) {
+      this.redrawWindow();
+    }
+  }
+
+  redrawWindow() {
+    this.graphics.clear();
+    this.createWindow();
+  }
+
+  makeInteractive() {
+    this.rect.setInteractive();
+    this.rect.on('pointerover', () => {
+      this.input.classList.add('chat-visible');
+      this.input.classList.remove('chat-invisible');
+
+      this.windowAlpha = 1;
+      this.borderAlpha = 1;
+      this.textAlpha = 1;
+      this.redrawWindow();
+    });
+
+    this.rect.on('pointerout', () => {
+      this.input.classList.remove('chat-visible');
+      this.input.classList.add('chat-invisible');
+
+      this.windowAlpha = 0.4;
+      this.borderAlpha = 0.3;
+      this.textAlpha = 0.2;
+      this.redrawWindow();
+    });
+  }
 }
