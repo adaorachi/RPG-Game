@@ -64,7 +64,7 @@ export function getCookie(cname) {
 export function refreshTokenInterval() {
   setInterval(() => {
     postData(`${SERVER_URL}/token`, { refreshToken: getCookie('refreshJwt') })
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         console.log(error.message);
         window.alert('Token is no longer valid, please login again.');

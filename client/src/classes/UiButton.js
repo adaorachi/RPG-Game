@@ -19,6 +19,7 @@ export default class UiButton extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
+
   createButton() {
     // create play game button
     this.button = this.scene.add.image(0, 0, 'button1');
@@ -26,7 +27,6 @@ export default class UiButton extends Phaser.GameObjects.Container {
     this.button.setInteractive();
     // scale the button
     this.button.setScale(1.4);
-
     // create the button text
     this.buttonText = this.scene.add.text(0, 0, this.text, { fontSize: '26px', fill: '#fff' });
     // center the button text inside the Ui button
@@ -39,6 +39,8 @@ export default class UiButton extends Phaser.GameObjects.Container {
     // listen for events
     this.button.on('pointerdown', () => {
       this.targetCallback();
+      this.buttonAudio = this.scene.sound.add('goldSound', { loop: false, volume: 0.3 })
+      this.buttonAudio.play();
     });
 
     this.button.on('pointerover', () => {

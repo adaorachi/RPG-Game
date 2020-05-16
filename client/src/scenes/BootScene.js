@@ -21,6 +21,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
     // load the map tileset image
     this.load.image('background', 'assets/level/background-extruded.png');
+    this.load.bitmapFont('arcade', 'assets/images/arcade.png', 'assets/images/arcade.xml');
   }
 
   loadSpriteSheets() {
