@@ -7,7 +7,7 @@ export default class CharacterSelectionScene extends Phaser.Scene {
 
   create() {
     // create title text
-    this.titleText = this.add.text(this.scale.width / 2, this.scale.height * 0.1, 'Final Fantasy RPG', { fontSize: '64px', fill: '#fff' });
+    this.titleText = this.add.text(this.scale.width / 2, this.scale.height * 0.1, 'Zenva MMORPG', { fontSize: '64px', fill: '#fff' });
     this.titleText.setOrigin(0.5);
 
     // create sprites

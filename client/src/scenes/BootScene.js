@@ -22,8 +22,6 @@ export default class BootScene extends Phaser.Scene {
     // load the map tileset image
     this.load.image('background', 'assets/level/background-extruded.png');
 
-    this.load.bitmapFont('arcade', 'assets/images/arcade.png', 'assets/images/arcade.xml');
-
     this.load.image('inventoryShield', 'assets/images/condensation_shield_new.png');
     this.load.image('inventoryGold', 'assets/images/gold_pile_16.png');
     this.load.image('inventoryButton', 'assets/images/instructions.png');

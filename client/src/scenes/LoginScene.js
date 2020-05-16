@@ -18,8 +18,10 @@ export default class LoginScene extends CredentialsBaseScene {
       postData(`${SERVER_URL}/login`, { email: loginValue, password: passwordValue })
         .then((response) => {
           if (response.status === 200) {
-            refreshTokenInterval();
-            this.startScene('About');
+            if (BYPASS_AUTH !== 'ENABLED') {
+              refreshTokenInterval();
+            }
+            this.startScene('CharacterSelection');
           } else {
             console.log(response.error);
             window.alert('Invalid username or password.');
