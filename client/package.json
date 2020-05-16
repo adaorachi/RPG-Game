@@ -10,7 +10,7 @@
     "watch": "webpack --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "MaryAnn Chukwuka",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.6",
