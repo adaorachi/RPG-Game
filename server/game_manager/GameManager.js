@@ -192,6 +192,34 @@ export default class GameManager {
         }
       });
 
+      socket.on('sendMessage', async (message, token) => {
+        try {
+          let name = v4();
+          let email = '';
+
+          if (process.env.BYPASS_AUTH !== 'ENABLED') {
+            // validate token, if valid send game information, else reject login
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+            // get the player's name
+            ({ name, email } = decoded.user);
+
+            // store the message in the database
+            await ChatModel.create({ email, message });
+          }
+
+          // emit the message to all players
+          this.io.emit('newMessage', {
+            message,
+            name,
+            frame: this.players[socket.id].frame,
+          });
+        } catch (error) {
+          console.log(error.message);
+          socket.emit('invalidToken');
+        }
+      });
+
       // player connected to our game
       console.log('player connected to our game');
       console.log(socket.id);
