@@ -68,8 +68,6 @@ export default class InventoryWindow extends ModalWindow {
     }
   }
 
-
-
   resize(gameSize) {
     if (gameSize.width < 750) {
       this.windowWidth = this.scene.scale.width - 80;
@@ -80,6 +78,36 @@ export default class InventoryWindow extends ModalWindow {
     }
 
     this.redrawWindow();
+  }
+
+  hideWindow() {
+    this.rect.disableInteractive();
+    this.inventoryContainer.setAlpha(0);
+    this.graphics.setAlpha(0);
+  }
+
+  showWindow(playerObject, mainPlayer) {
+    this.mainPlayer = mainPlayer;
+    this.playerObject = playerObject;
+    this.rect.setInteractive();
+    this.inventoryContainer.setAlpha(1);
+    this.graphics.setAlpha(1);
+
+    // update player stats
+    this.swordStatText.setText(playerObject.attackValue);
+    this.shieldStatText.setText(playerObject.defenseValue);
+    this.goldStatText.setText(playerObject.gold);
+
+    // hide inventory items that are not needed
+    for (let i = Object.keys(playerObject.items).length; i < 5; i += 1) {
+      this.hideInventoryItem(i);
+    }
+
+    // populate inventory items
+    const keys = Object.keys(playerObject.items);
+    for (let i = 0; i < keys.length; i += 1) {
+      this.updateInventoryItem(playerObject.items[keys[i]], i);
+    }
   }
 
 
