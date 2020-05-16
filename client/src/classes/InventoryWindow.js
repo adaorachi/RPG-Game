@@ -96,6 +96,49 @@ export default class InventoryWindow extends ModalWindow {
     this.statsContainer.add(this.goldStatText);
   }
 
+  removeItem(itemNumber) {
+    this.playerObject.dropItem(itemNumber);
+    this.showWindow(this.playerObject, this.mainPlayer);
+  }
+
+  createInventoryItems() {
+    for (let x = 0; x < 5; x += 1) {
+      const yPos = 0 + 55 * x;
+
+      // create inventory item icon
+      this.inventoryItems[x] = {};
+      this.inventoryItems[x].item = this.scene.add.image(0, yPos, 'tools', 0).setScale(1.5);
+      this.itemsContainer.add(this.inventoryItems[x].item);
+
+      // create discard item button
+      this.inventoryItems[x].discardButton = this.scene.add.image(0, yPos, 'inventoryRemove').setScale(0.75).setInteractive();
+      this.itemsContainer.add(this.inventoryItems[x].discardButton);
+      this.inventoryItems[x].discardButton.on('pointerdown', () => {
+        this.removeItem(x);
+      });
+
+      // create item name text
+      this.inventoryItems[x].itemName = this.scene.add.text(0, yPos - 10, 'Item 1 Name', { fontSize: '14px', fill: '#ffffff' });
+      this.itemsContainer.add(this.inventoryItems[x].itemName);
+
+      // create item stats icons
+      this.inventoryItems[x].attackIcon = this.scene.add.image(0, yPos, 'inventorySword').setScale(0.75);
+      this.inventoryItems[x].defenseIcon = this.scene.add.image(0, yPos, 'inventoryShield').setScale(0.75);
+      this.inventoryItems[x].healthIcon = this.scene.add.image(0, yPos, 'inventoryHeart').setScale(0.75);
+      this.itemsContainer.add(this.inventoryItems[x].attackIcon);
+      this.itemsContainer.add(this.inventoryItems[x].defenseIcon);
+      this.itemsContainer.add(this.inventoryItems[x].healthIcon);
+
+      // create items stats text
+      this.inventoryItems[x].attackIconText = this.scene.add.text(0, yPos - 10, '5', { fontSize: '14px', fill: '#00ff00' });
+      this.inventoryItems[x].defenseIconText = this.scene.add.text(0, yPos - 10, '10', { fontSize: '14px', fill: '#00ff00' });
+      this.inventoryItems[x].healthIconText = this.scene.add.text(0, yPos - 10, '-5', { fontSize: '14px', fill: '#ff0000' });
+      this.itemsContainer.add(this.inventoryItems[x].attackIconText);
+      this.itemsContainer.add(this.inventoryItems[x].defenseIconText);
+      this.itemsContainer.add(this.inventoryItems[x].healthIconText);
+    }
+  }
+
   updateInventoryContainerPositions() {
     this.inventoryContainer.setSize(this.inventoryContainer.width - 40, 80);
     this.swordIcon.x = this.inventoryContainer.width * 0.1;

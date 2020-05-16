@@ -182,4 +182,14 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     this.player.destroy();
     this.destroy();
   }
+
+  dropItem(itemNumber) {
+    const keys = Object.keys(this.items);
+    delete this.items[keys[itemNumber]];
+    this.scene.sendDropItemMessage(keys[itemNumber]);
+  }
+
+  sendDropItemMessage(itemId) {
+    this.socket.emit('playerDroppedItem', itemId);
+  }
 }
