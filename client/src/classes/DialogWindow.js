@@ -117,4 +117,52 @@ export default class DialogWindow {
       this.redrawWindow();
     });
   }
+
+  addNewMessage(messageObject) {
+    this.messages.push(messageObject);
+
+    const windowDimensions = this.calculateWindowDimension();
+    const message = `${messageObject.name}: ${messageObject.message}`;
+
+    let messageText = this.messageGroup.getFirstDead();
+    if (!messageText) {
+      messageText = this.scene.add.text(0, this.messagesHeight, message, {
+        fontSize: '18px',
+        fill: '#fff',
+        wordWrap: {
+          width: windowDimensions.rectWidth,
+        },
+      });
+      this.messageGroup.add(messageText);
+    } else {
+      messageText.setText(message);
+      messageText.setY(this.messagesHeight);
+      messageText.setActive(true);
+      messageText.setVisible(true);
+    }
+    this.dialogContainer.add(messageText);
+    this.messageCount += 1;
+    this.messagesHeight += messageText.height;
+
+    // stop the message list from going off screen
+    if (this.messagesHeight > (windowDimensions.rectHeight - 60)) {
+      // reset messages height
+      this.messagesHeight = 0;
+      // remove the first dialog item from our array
+      this.messages.shift();
+      // loop through the message group and update the text of each item
+      this.messageGroup.getChildren().forEach((child, index) => {
+        if (index > this.messages.length - 1) {
+          child.setActive(false);
+          child.setVisible(false);
+        } else {
+          child.setText(`${this.messages[index].name}: ${this.messages[index].message}`);
+          child.setY(this.messagesHeight);
+          child.setActive(true);
+          child.setVisible(true);
+          this.messagesHeight += child.height;
+        }
+      });
+    }
+  }
 }
