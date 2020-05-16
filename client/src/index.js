@@ -1,12 +1,11 @@
 import * as Phaser from 'phaser';
 import io from 'socket.io-client';
-import scenes from './scenes/scene';
+import scenes from './scenes/scenes';
 
 const config = {
   type: Phaser.AUTO,
-  parent: 'phaser-game',
-  // width: 1340,
-  height: 630,
+  width: 800,
+  height: 600,
   scene: scenes,
   physics: {
     default: 'arcade',

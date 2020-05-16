@@ -1,9 +1,9 @@
-import { uuid } from 'uuidv4';
-import Utils from './utils';
+import v4 from 'uuid/v4';
+import { randomNumber } from './utils';
 
 export default class MonsterModel {
   constructor(x, y, gold, spawnerId, frame, health, attack) {
-    this.id = `${spawnerId}-${uuid()}`;
+    this.id = `${spawnerId}-${v4()}`;
     this.spawnerId = spawnerId;
     this.x = x * 2;
     this.y = y * 2;
@@ -19,7 +19,7 @@ export default class MonsterModel {
   }
 
   move() {
-    const randomPosition = Utils.randomNumber(1, 8);
+    const randomPosition = randomNumber(1, 8);
     const distance = 64;
 
     switch (randomPosition) {
@@ -45,7 +45,7 @@ export default class MonsterModel {
         break;
       case 7:
         this.x -= distance;
-        this.y += 32;
+        this.y += distance;
         break;
       case 8:
         this.x -= distance;

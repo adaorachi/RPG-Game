@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 import UiButton from '../classes/UiButton';
 import {
   createDiv, createLabel, createInputField, createBrElement,

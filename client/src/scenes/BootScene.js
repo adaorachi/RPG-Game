@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -6,15 +6,20 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
+    // load images
     this.loadImages();
+    // load spritesheets
     this.loadSpriteSheets();
+    // load audio
     this.loadAudio();
+    // load tilemap
     this.loadTileMap();
   }
 
   loadImages() {
     this.load.image('button1', 'assets/images/ui/blue_button01.png');
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
+    // load the map tileset image
     this.load.image('background', 'assets/level/background-extruded.png');
   }
 
@@ -30,10 +35,10 @@ export default class BootScene extends Phaser.Scene {
     this.load.audio('playerAttack', ['assets/audio/PlayerAttack.wav']);
     this.load.audio('playerDamage', ['assets/audio/PlayerDamage.wav']);
     this.load.audio('playerDeath', ['assets/audio/PlayerDeath.wav']);
-    this.load.audio('goldSound', ['assets/audio/Pickup.wav']);
   }
 
   loadTileMap() {
+    // map made with Tiled in JSON format
     this.load.tilemapTiledJSON('map', 'assets/level/large_level.json');
   }
 
