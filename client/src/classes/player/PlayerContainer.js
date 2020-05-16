@@ -188,8 +188,4 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
     delete this.items[keys[itemNumber]];
     this.scene.sendDropItemMessage(keys[itemNumber]);
   }
-
-  sendDropItemMessage(itemId) {
-    this.socket.emit('playerDroppedItem', itemId);
-  }
 }
