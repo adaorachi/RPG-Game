@@ -9,7 +9,7 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     // create title text
-    this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Final Fantasy', { fontSize: '64px', fill: '#fff' });
+    this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Final Fantasy RPG', { fontSize: '64px', fill: '#fff' });
     this.titleText.setOrigin(0.5);
 
     // create a login button

@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import UiButton from '../classes/UiButton';
 import { getScore } from '../apicall/GameAPICall';
 import 'regenerator-runtime';
 
@@ -9,6 +10,17 @@ export default class LeaderBoard extends Phaser.Scene {
   }
 
   create() {
+    // create a back button
+    this.loginButton = new UiButton(
+      this,
+      this.scale.width / 6,
+      this.scale.height * 0.1,
+      'button1',
+      'button2',
+      'Back',
+      this.startScene.bind(this, 'About'),
+    );
+
     this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
     const displayleaderBoard = (array) => {
       for (let i = 1; i < array.length; i++) {
@@ -34,5 +46,9 @@ export default class LeaderBoard extends Phaser.Scene {
         .catch((err) => `${err}`);
     };
     apiScoreResponse();
+  }
+
+  startScene(targetScene) {
+    this.scene.start(targetScene);
   }
 }

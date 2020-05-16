@@ -67,8 +67,8 @@ export function refreshTokenInterval() {
       .then(() => { })
       .catch((error) => {
         console.log(error.message);
-        window.alert('Token is no longer valid, please login again.');
-        window.location.replace('/index.html');
+        // window.alert('Token is no longer valid, please login again.');
+        window.location.replace('/dist/index.html');
       });
   });
 }

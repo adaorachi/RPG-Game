@@ -8,7 +8,7 @@ export default class AboutScene extends Phaser.Scene {
 
   create() {
     // create a leaderboard button
-    this.loginButton = new UiButton(
+    this.leaderboardButton = new UiButton(
       this,
       this.scale.width / 2,
       this.scale.height * 0.35,
@@ -19,7 +19,7 @@ export default class AboutScene extends Phaser.Scene {
     );
 
     // create a start button
-    this.startButton = new UiButton(
+    this.startGameButton = new UiButton(
       this,
       this.scale.width / 2,
       this.scale.height * 0.50,
