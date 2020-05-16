@@ -32,13 +32,6 @@ export default class PlayerModel {
     this.maxHealth += item.healthBonus;
   }
 
-  removeItem(itemId) {
-    this.attack -= this.playerItems[itemId].attackBonus;
-    this.defense -= this.playerItems[itemId].defenseBonus;
-    this.maxHealth -= this.playerItems[itemId].healthBonus;
-    delete this.playerItems[itemId];
-  }
-
   playerAttacked(attack) {
     const damage = this.defense - attack;
     this.updateHealth(damage);
