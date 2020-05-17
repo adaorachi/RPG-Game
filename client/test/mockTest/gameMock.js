@@ -26,8 +26,6 @@ export default gameConfig = () => {
   class Game extends Phaser.Game {
     constructor() {
       super(config);
-      const socket = io(SERVER_URL);
-      this.globals = { socket };
       this.scene.start('Boot');
     }
   }
