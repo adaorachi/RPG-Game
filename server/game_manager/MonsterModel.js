@@ -1,4 +1,4 @@
-import v4 from 'uuid';
+import v4 from 'uuid/v4';
 import { randomNumber } from './utils';
 
 export default class MonsterModel {
@@ -14,8 +14,8 @@ export default class MonsterModel {
     this.attack = attack;
   }
 
-  loseHealth() {
-    this.health -= 1;
+  loseHealth(attack) {
+    this.health -= attack;
   }
 
   move() {
