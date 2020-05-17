@@ -410,6 +410,8 @@ export default class GameScene extends Phaser.Scene {
   addCollisions() {
     // check for collisions between the player and the tiled blocked layer
     this.physics.add.collider(this.player, this.gameMap.blockedLayer);
+    // check for collisions between the player and monsters
+    this.physics.add.collider(this.player, this.monsters);
     // check for overlaps between player and chest game objects
     this.physics.add.overlap(this.player, this.chests, this.collectChest, null, this);
     // check for collisions between the monster group and the tiled blocked layer

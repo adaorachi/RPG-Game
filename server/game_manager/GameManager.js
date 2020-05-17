@@ -262,7 +262,7 @@ export default class GameManager {
 
   setupSpawners() {
     const config = {
-      spawnInterval: 3000,
+      spawnInterval: 1000,
       limit: 3,
       spawnerType: SpawnerType.CHEST,
       id: '',
@@ -286,6 +286,7 @@ export default class GameManager {
     Object.keys(this.monsterLocations).forEach((key) => {
       config.id = `monster-${key}`;
       config.spawnerType = SpawnerType.MONSTER;
+      config.limit = 10;
 
       spawner = new Spawner(
         config,

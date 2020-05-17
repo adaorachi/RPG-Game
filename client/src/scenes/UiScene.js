@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import UiButton from '../classes/UiButton';
 import InventoryWindow from '../classes/InventoryWindow';
 
 export default class UiScene extends Phaser.Scene {
@@ -24,9 +25,23 @@ export default class UiScene extends Phaser.Scene {
 
   setupUiElements() {
     // create the score text game object
-    this.scoreText = this.add.text(35, 8, 'Coins: 0', { fontSize: '16px', fill: '#fff' });
+    this.scoreText = this.add.text(45, 8, 'Coins: 0', { fontSize: '36px', fill: '#fff' });
     // create coin icon
     this.coinIcon = this.add.image(15, 15, 'items', 3);
+    this.coinIcon.setScale(1.2);
+
+    // create a back button
+    this.backButton = new UiButton(
+      this,
+      this.scale.width / 6,
+      this.scale.height * 0.1,
+      'button1',
+      'button2',
+      'Back',
+      this.scene.start('Game', 'Option'),
+    );
+    this.backButton.setScale(0.4);
+    // this.startScene.bind(this, 'Option'),
 
     // create inventory modal
     this.inventoryWindow = new InventoryWindow(this, {
@@ -59,6 +74,10 @@ export default class UiScene extends Phaser.Scene {
         this.showInventory = false;
       }
     });
+  }
+
+  startScene(targetScene) {
+    this.scene.start(targetScene);
   }
 
   setupEvents() {

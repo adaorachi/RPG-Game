@@ -1,9 +1,10 @@
 {
   "name": "phaser-project",
   "version": "1.0.0",
+  "description": "A multi players online RPG game.",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "start": "webpack-dev-server --port=8000 --mode development --open",
@@ -20,6 +21,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.0.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"

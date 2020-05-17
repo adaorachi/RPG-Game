@@ -11,15 +11,16 @@ export default class LeaderBoard extends Phaser.Scene {
 
   create() {
     // create a back button
-    this.loginButton = new UiButton(
+    this.backButton = new UiButton(
       this,
       this.scale.width / 6,
       this.scale.height * 0.1,
       'button1',
       'button2',
       'Back',
-      this.startScene.bind(this, 'About'),
+      this.startScene.bind(this, 'Option'),
     );
+    this.backButton.setScale(0.8);
 
     this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
     const displayleaderBoard = (array) => {

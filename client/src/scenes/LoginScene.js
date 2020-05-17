@@ -21,7 +21,7 @@ export default class LoginScene extends CredentialsBaseScene {
             if (BYPASS_AUTH !== 'ENABLED') {
               refreshTokenInterval();
             }
-            this.startScene('CharacterSelection');
+            this.startScene('Option');
           } else {
             console.log(response.error);
             window.alert('Invalid username or password.');

@@ -54,7 +54,7 @@ router.post('/forgot-password', async (request, response) => {
     to: userEmail,
     from: email,
     template: 'forgot-password',
-    subject: 'Zenva Phaser MMO Password Reset',
+    subject: 'Final Fantasy MMO Password Reset',
     context: {
       name: 'joe',
       url: `http://localhost:${process.env.PORT || 3000}/?token=${token}&scene=resetPassword`,
@@ -96,7 +96,7 @@ router.post('/reset-password', async (request, response) => {
     to: userEmail,
     from: email,
     template: 'reset-password',
-    subject: 'Zenva Phaser MMO Password Reset Confirmation',
+    subject: 'Final Fantasy MMO Password Reset Confirmation',
     context: {
       name: user.username,
     },

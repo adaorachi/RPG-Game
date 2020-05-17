@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import UiButton from '../classes/UiButton';
 
 export default class CharacterSelectionScene extends Phaser.Scene {
   constructor() {
@@ -6,9 +7,23 @@ export default class CharacterSelectionScene extends Phaser.Scene {
   }
 
   create() {
+
+    // create a back button
+    this.backButton = new UiButton(
+      this,
+      this.scale.width / 6,
+      this.scale.height * 0.1,
+      'button1',
+      'button2',
+      'Back',
+      this.startScene.bind(this, 'Option'),
+    );
+    this.backButton.setScale(0.8);
+
     // create title text
-    this.titleText = this.add.text(this.scale.width / 2, this.scale.height * 0.1, 'Zenva MMORPG', { fontSize: '64px', fill: '#fff' });
+    this.titleText = this.add.bitmapText(this.scale.width / 2, this.scale.height * 0.1, 'arcade', 'Select Avatar').setTint(0xffffff);
     this.titleText.setOrigin(0.5);
+    this.titleText.setFontSize(28);
 
     // create sprites
     this.createCharacters();
@@ -17,6 +32,10 @@ export default class CharacterSelectionScene extends Phaser.Scene {
     this.scale.on('resize', this.resize, this);
     // resize our game
     this.resize({ height: this.scale.height, width: this.scale.width });
+  }
+
+  startScene(targetScene) {
+    this.scene.start(targetScene);
   }
 
   createCharacters() {
@@ -50,6 +69,8 @@ export default class CharacterSelectionScene extends Phaser.Scene {
 
   pointerdown(character) {
     this.scale.removeListener('resize', this.resize);
+    this.selectionAudio = this.sound.add('goldSound', { loop: false, volume: 0.5 });
+    this.selectionAudio.play();
     this.scene.start('Game', { selectedCharacter: character.characterId });
   }
 
@@ -59,9 +80,9 @@ export default class CharacterSelectionScene extends Phaser.Scene {
     this.cameras.resize(width, height);
 
     if (width < 1000) {
-      this.titleText.setFontSize('64px');
+      this.titleText.setFontSize(28);
     } else {
-      this.titleText.setFontSize('128px');
+      this.titleText.setFontSize(48);
     }
 
     let yDiff = 0;

@@ -9,8 +9,10 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     // create title text
-    this.titleText = this.add.text(this.scale.width / 2, this.scale.height / 2, 'Zenva MMORPG', { fontSize: '128px', fill: '#fff' });
+    this.titleText = this.add.bitmapText(this.scale.width / 2, this.scale.height * 0.1, 'arcade', 'Final Fantasy RPG').setTint(0xffffff);
     this.titleText.setOrigin(0.5);
+    this.titleText.setFontSize(32);
+
 
     // create a login button
     this.loginButton = new UiButton(
@@ -57,9 +59,9 @@ export default class TitleScene extends Phaser.Scene {
     this.cameras.resize(width, height);
 
     if (width < 1000) {
-      this.titleText.setFontSize('64px');
+      this.titleText.setFontSize(32);
     } else {
-      this.titleText.setFontSize('128px');
+      this.titleText.setFontSize(64);
     }
 
     if (height < 700) {
