@@ -31,16 +31,16 @@ export default class UiScene extends Phaser.Scene {
     this.coinIcon.setScale(1.2);
 
     // create a back button
-    this.backButton = new UiButton(
-      this,
-      this.scale.width / 6,
-      this.scale.height * 0.1,
-      'button1',
-      'button2',
-      'Back',
-      this.scene.start('Game', 'Option'),
-    );
-    this.backButton.setScale(0.4);
+    // this.backButton = new UiButton(
+    //   this,
+    //   this.scale.width / 6,
+    //   this.scale.height * 0.1,
+    //   'button1',
+    //   'button2',
+    //   'Back',
+    //   this.scene.start('Game', 'Option'),
+    // );
+    // this.backButton.setScale(0.4);
     // this.startScene.bind(this, 'Option'),
 
     // create inventory modal
