@@ -82,13 +82,13 @@ export default class PlayerContainer extends Phaser.GameObjects.Container {
   updateHealthBar() {
     this.healthBar.clear();
     this.healthBar.fillStyle(0xffffff, 1);
-    this.healthBar.fillRect(this.x - 32, this.y - 40, 64, 10);
+    this.healthBar.fillRect(this.x - 32, this.y - 40, 60, 10);
     if (this.health <= 50) {
       this.healthBar.fillGradientStyle(0xff0000, 0xffffff, 4);
     } else {
       this.healthBar.fillGradientStyle(0x37823c, 0xffffff, 4);
     }
-    this.healthBar.fillRect(this.x - 32, this.y - 40, 64 * (this.health / this.maxHealth), 10);
+    this.healthBar.fillRect(this.x - 32, this.y - 40, 60 * (this.health / this.maxHealth), 10);
   }
 
   updateHealth(health) {
