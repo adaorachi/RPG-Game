@@ -23,14 +23,34 @@ export default class LeaderBoard extends Phaser.Scene {
     this.backButton.setScale(0.8);
 
     this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
-    const displayleaderBoard = (array) => {
-      for (let i = 1; i < array.length; i++) {
+    const displayleaderBoard = (arr) => {
+      const array = removeDuplicates(arr);
+      for (let i = 0; i < array.length; i++) {
         if (array) {
-          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i}      ${array[i].score}    ${array[i].user}`).setTint(0xffffff);
+          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i + 1}      ${array[i].user}    ${array[i].score}`).setTint(0xffffff);
         } else {
           this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i}      0    ---`).setTint(0xffffff);
         }
       }
+    }
+
+    const removeDuplicates = (array) => {
+      const arr = {};
+      const reverseArrFormat = [];
+      array.forEach((a) => {
+        const userSort = a.user
+        if (a.user in arr) {
+          if (arr[userSort].score < a.score) {
+            arr[userSort] = { score: a.score }
+          }
+        } else {
+          arr[userSort] = { score: a.score }
+        }
+      })
+      Object.entries(arr).forEach((item) => {
+        reverseArrFormat.push({ user: item[0], score: item[1].score })
+      })
+      return reverseArrFormat;
     }
 
     const sortScore = (x) => {

@@ -54,7 +54,7 @@ export default class BootScene extends Phaser.Scene {
 
   create() {
     this.scene.start('Title');
-    this.backgroundAudio = this.sound.add('background', { loop: true, volume: 0.2 });
+    this.backgroundAudio = this.sound.add('background', { loop: true, volume: 0.1 });
     this.backgroundAudio.play();
   }
 }
