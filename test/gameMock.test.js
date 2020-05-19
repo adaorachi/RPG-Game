@@ -1,5 +1,5 @@
 import gameConfig from './mockTest/gameMock';
 
-test('The method gameConfig should create an object', () => {
+test('Receive an object in return when call gameConfig', () => {
   expect(typeof gameConfig()).toBe('object');
 });

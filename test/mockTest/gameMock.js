@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import Phaser from 'phaser';
 
-const gameConfig = () => {
+function gameConfig() {
   const config = {
     type: Phaser.AUTO,
     physics: {
@@ -33,6 +33,6 @@ const gameConfig = () => {
   window.onload = () => {
     window.game = new Game();
   };
-};
+}
 
 export default gameConfig;
