@@ -21,8 +21,9 @@ In this project I implemented an online multi-player RPG game using [Phaser 3](h
 
 
 ## About
-This is a game app built with JavaScript which I named after the game - Final Fantasy. The objective of this project was to design and build a Role Playing Game (RPG) using Phaser and Javascript among other technologies and a scoring system. And as well as using this tutorial [GameDev Academy](https://gamedevacademy.org/how-to-create-a-turn-based-rpg-game-in-phaser-3-part-1/) to point me in the right direction as to how to go about it.
-In the light of that, I added extra features to the game to make it very interactive and fun to play. I implemented an authentication system and created a multiple playing real time features where users can log in and compete with others players in real time. And the fun part is that you can also chat with other players in real time too. In the game, players have the ability to gain scores, destroy enemies and fight with other players and get score levels saved to a leaderboard. 
+<p>This is a game app built with JavaScript which I named after the game - Final Fantasy. The objective of this project was to design and build a Role Playing Game (RPG) using Phaser and Javascript among other technologies and a scoring system. And as well as using this tutorial [GameDev Academy](https://gamedevacademy.org/how-to-create-a-turn-based-rpg-game-in-phaser-3-part-1/) to point me in the right direction as to how to go about it.</p>
+
+<p>In the light of that, I added extra features to the game to make it very interactive and fun to play. I implemented an authentication system and created a multiple playing real time features where users can log in and compete with others players in real time. And the fun part is that you can also chat with other players in real time too. In the game, players have the ability to gain scores, destroy enemies and fight with other players and get score levels saved to a leaderboard. </p>
 
 Link to a [live-version](https://final-fantasy-10.herokuapp.com/).
 
@@ -45,17 +46,19 @@ Lastly, I used Heroku, a cloud-based service to deploy the client side code of t
 
 
 ## The game
-In this never-ending game, you will have the ability to choose your avatar character after successful credentials validation into the game. And you will be spawned at a random location in the Fantasy forest at every login. 
-In the Fantasy forest, you will have to take up chests to gain gold. Each chest has different gold values attached to it. You will also have to gain inventory items too. But be careful of the items you pick up, some of them reduces your strength and makes you susceptible to attack while others makes you immuned to attack and stronger. But the good part is that you can always remove inventory items if you do not want them. 
-You will also be hunted by a handful of monsters which you will have to destroy to gain life. Some monsters are more powerful than the others and they will get to destroy you if your defense is low or you have low life span.
-Remember, this is a never-ending game, so there are no round rules. Once you are out of life, you'll get respawned at a random location in the forest with full life. Your coins value is also deducted which accounts for your full life.
-You can also view the leaderboard at the beginning of the game with players score stats.
+<p>In this never-ending game, you will have the ability to choose your avatar character after successful credentials validation into the game. And you will be spawned at a random location in the Fantasy forest at every login. </p>
+
+<p>In the Fantasy forest, you will have to take up chests to gain gold. Each chest has different gold values attached to it. You will also have to gain inventory items too. But be careful of the items you pick up, some of them reduces your strength and makes you susceptible to attack while others makes you immuned to attack and stronger. But the good part is that you can always remove inventory items if you do not want them. </p>
+<p> You will also be hunted by a handful of monsters which you will have to destroy to gain life. Some monsters are more powerful than the others and they will get to destroy you if your defense is low or you have low life span.</p>
+
+<p>Remember, this is a never-ending game, so there are no round rules. Once you are out of life, you'll get respawned at a random location in the forest with full life. Your coins value is also deducted which accounts for your full life.</p>
+<p>You can also view the leaderboard at the beginning of the game with players score stats.</p>
 
 ### How to play
   - If you have not signed up yet, you can do so and log in with the right credentials to start the game.
   - Navigate to the 'Select Avatar' Scene and click on a avatar to select a character of your choice.
-  - Next, you will be taken to the Game Scene. Use the keyboard buttons ![screenshot](dist/assets/images/screenshots/arrow-keys.png) to move player around.
-  - Press the space bar key ![screenshot](dist/assets/images/screenshots/spaceBar.png) to attack enemy/monster. 
+  - Next, you will be taken to the Game Scene. Use the keyboard buttons ![screenshot](dist/assets/screenshots/arrow-keys.png) to move player around.
+  - Press the space bar key ![screenshot](dist/assets/screenshots/spaceBar.png) to attack enemy/monster. 
   - Pick up gold chest to gain its monetary equivalent in coins.
   - Pick up inventory item to strength defense or otherwise.
   - Click on the instruction icon at the bottom left of the screen to view your inventory items. You can choose to remove any item from the modal popup.
@@ -70,8 +73,8 @@ You can play the game online clicking [here](https://final-fantasy-10.herokuapp.
 
 ## Installation
 
-NOTE: To install the full features of this game as seen in the online version, you will have to use the - [deployed-game](https://github.com/adaorachi/RPG-Game/tree/deployed-game) repo branch, where the client and server codes are contained. It i also important to note that the application will need the following prequisite installations to be done locally on PC - [MongoDB](https://docs.mongodb.com/manual/installation/) and  - [Docker](https://www.docker.com/) to containerize the game app. The applications above are used in order to serve the game authentication system properly.
-Docker: A tool designed to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and deploy it as one package.
+NOTE: To install the full features of this game as seen in the online version, you will have to use the - [deployed-game](https://github.com/adaorachi/RPG-Game/tree/deployed-game) repo branch, where the client and server codes are contained. It is also important to note that the application will need the following prequisite installations to be done locally on PC - [MongoDB](https://docs.mongodb.com/manual/installation/) and  - [Docker](https://www.docker.com/) to containerize the game app. <p>The applications above are used in order to serve the game authentication system properly.</p>
+<p>Docker: A tool designed to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and deploy it as one package.</p>
 
 
 However, if you wish to install the game application with less features, you will have to use this current repo branch - [phaser-RPG](https://github.com/adaorachi/RPG-Game/tree/phaser-RPG). Features like user authentication, chat system and inventories are removed as these features uses the user authenticaiton to be implemented.
@@ -150,22 +153,23 @@ You will have a live update of your score as you play. Enjoy the game!
 
 
 ## Design 
-The Game starts with a authentication validation. After successful login, it shows the option screen with options to view the LeaderBoard, How-To-play and Start game.
-The LeaderBoard option shows the LeaderBaord scene that displays players' scores from the highest rank.
-The About option shows the About scene that displays a list of rules and how to play the game.
-The Start option takes you to the Avatar Selection Scene where you can choose an character avatar. Once you select an avatar by clicking on it, you are taken to the Game Scene. 
-In the Game scene, you can move and navigate the player around with the arrow keys and fight an enemy or player with the space-bar key. Once you attack an enemy, it automatically attacks you back and your health bar gradually drains.
-If you successfully destroy an enemy, your earn points and your health bar get replenished by random values based on the strength level of the enemy.
-If an enemy destroys you, you get respawned at a random location with full bar and some points deducted to gain your full bar and you can continue playing.
-In the Game scene, you can pick up gold chest to earn points and inventory items dor attack or defense values
-In the Game scene, you can view your stats by clicking on the character avatar or view other players stats by clicking on their avatar.
-In the Game scene, you can also chat with other players.
+- The Game starts with a authentication validation. After successful login, it shows the option screen with options to view the LeaderBoard, How-To-play and Start game.
+- The LeaderBoard option shows the LeaderBaord scene that displays players' scores from the highest rank.
+- The About option shows the About scene that displays a list of rules and how to play the game.
+- The Start option takes you to the Avatar Selection Scene where you can choose an character avatar. Once you select an avatar by clicking on it, you are taken to the Game Scene. 
+- In the Game scene, you can move and navigate the player around with the arrow keys and fight an enemy or player with the space-bar key. Once you attack an enemy, it automatically attacks you back and your health bar gradually drains.
+- If you successfully destroy an enemy, your earn points and your health bar get replenished by random values based on the strength level of the enemy.
+- If an enemy destroys you, you get respawned at a random location with full bar and some points deducted to gain your full bar and you can continue playing.
+- In the Game scene, you can pick up gold chest to earn points and inventory items dor attack or defense values
+- In the Game scene, you can view your stats by clicking on the character avatar or view other players stats by clicking on their avatar.
+- In the Game scene, you can also chat with other players.
 
 ### Game Characters/Features
 
 #### Players Characters
 
-The screenshot below is a display and formation of the player-character avatars which you have the ability to choose any. Use a player character to seek for enemies in the forest and take up gold chest and inventory items. A character has a full health bar of **150 hp*** and possesses a sword for attack. Damages can be done on a character's life when it fights an enemy or other players. Once a player-character is out of life, it gets respawned at a random location with full life.<br><br>
+The screenshot below is a display and formation of the player-character avatars which you have the ability to choose any. Use a player character to seek for enemies in the forest and take up gold chest and inventory items. 
+<p>A character has a full health bar of **150 hp*** and possesses a sword for attack. Damages can be done on a character's life when it fights an enemy or other players. Once a player-character is out of life, it gets respawned at a random location with full life</p>.<br><br>
 
 ![screenshot](dist/assets/images/characters.png)
 
