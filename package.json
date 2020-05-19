@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "phaser": "^3.23.0",
+    "regenerator-runtime": "^0.13.5",
     "uuidv4": "^6.0.8"
   }
 }

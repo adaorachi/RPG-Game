@@ -21,18 +21,6 @@ export default class LeaderBoard extends Phaser.Scene {
     );
     this.backButton.setScale(0.8);
 
-    this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
-    const displayleaderBoard = (arr) => {
-      const array = removeDuplicates(arr);
-      for (let i = 0; i < array.length; i++) {
-        if (array) {
-          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i + 1}      ${array[i].user}    ${array[i].score}`).setTint(0xffffff);
-        } else {
-          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i}      0    ---`).setTint(0xffffff);
-        }
-      }
-    };
-
     const removeDuplicates = (array) => {
       const arr = {};
       const reverseArrFormat = [];
@@ -50,6 +38,19 @@ export default class LeaderBoard extends Phaser.Scene {
         reverseArrFormat.push({ user: item[0], score: item[1].score });
       });
       return reverseArrFormat;
+    };
+
+
+    this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
+    const displayleaderBoard = (arr) => {
+      const array = removeDuplicates(arr);
+      for (let i = 0; i < array.length; i += 1) {
+        if (array) {
+          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i + 1}      ${array[i].user}    ${array[i].score}`).setTint(0xffffff);
+        } else {
+          this.add.bitmapText(100, 160 + 50 * i, 'arcade', ` ${i}      0    ---`).setTint(0xffffff);
+        }
+      }
     };
 
     const sortScore = (x) => {
