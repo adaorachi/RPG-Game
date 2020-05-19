@@ -15,8 +15,10 @@ export default class UiScene extends Phaser.Scene {
   }
 
   setupUiElements() {
-    this.scoreText = this.add.text(35, 8, 'Coins: 0', { fontSize: '16px', fill: '#fff' });
+    this.scoreText = this.add.text(45, 8, 'Coins: 0', { fontSize: '36px', fill: '#fff' });
+    // create coin icon
     this.coinIcon = this.add.image(15, 15, 'items', 3);
+    this.coinIcon.setScale(1.2);
   }
 
   setupEvents() {

@@ -1,49 +1,35 @@
-import Phaser from 'phaser';
-// import config from './config/config';
-import BootScene from './scenes/BootScene';
-import TitleScene from './scenes/TitleScene';
-import GameScene from './scenes/GameScene';
-import UiScene from './scenes/UiScene';
-// import OptionsScene from './scenes/OptionsScene';
-// import CreditsScene from './scenes/CreditsScene';
-// import PreloaderScene from './scenes/PreloaderScene';
-
-// class Game extends Phaser.Game {
-//   constructor() {
-//     super(config);
-//     this.scene.add('Boot', BootScene);
-//     this.scene.add('Preloader', PreloaderScene);
-//     this.scene.add('Title', TitleScene);
-//     this.scene.add('Options', OptionsScene);
-//     this.scene.add('Credits', CreditsScene);
-//     this.scene.add('Game', GameScene);
-//     this.scene.start('Game');
-//   }
-// }
-
-// window.game = new Game();
+import * as Phaser from 'phaser';
+import scenes from './scenes/scenes';
 
 const config = {
   type: Phaser.AUTO,
-  width: 1340,
-  height: 630,
-  scene: [
-    BootScene,
-    TitleScene,
-    GameScene,
-    UiScene,
-  ],
+  scene: scenes,
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+      debug: false,
       gravity: {
         y: 0,
       },
     },
   },
+  scale: {
+    width: '100%',
+    height: '100%',
+    mode: Phaser.Scale.RESIZE,
+    parent: 'phaser-game',
+  },
   pixelArt: true,
   roundPixels: true,
 };
 
-const game = new Phaser.Game(config);
+class Game extends Phaser.Game {
+  constructor() {
+    super(config);
+    this.scene.start('Boot');
+  }
+}
+
+window.onload = () => {
+  window.game = new Game();
+};
