@@ -21,7 +21,7 @@ In this project I implemented an online multi-player RPG game using [Phaser 3](h
 
 
 ## About
-<p>This is a game app built with JavaScript which I named after the game - Final Fantasy. The objective of this project was to design and build a Role Playing Game (RPG) using Phaser and Javascript among other technologies and a scoring system. And as well as using this tutorial [GameDev Academy](https://gamedevacademy.org/how-to-create-a-turn-based-rpg-game-in-phaser-3-part-1/) to point me in the right direction as to how to go about it.</p>
+<p>This is a game app built with JavaScript which I named after the game - Final Fantasy. The objective of this project was to design and build a Role Playing Game (RPG) using Phaser and Javascript among other technologies and a scoring system. And as well as using this tutorial <a href="https://gamedevacademy.org/how-to-create-a-turn-based-rpg-game-in-phaser-3-part-1/">GameDev Academy</a> to point me in the right direction as to how to go about it.</p>
 
 <p>In the light of that, I added extra features to the game to make it very interactive and fun to play. I implemented an authentication system and created a multiple playing real time features where users can log in and compete with others players in real time. And the fun part is that you can also chat with other players in real time too. In the game, players have the ability to gain scores, destroy enemies and fight with other players and get score levels saved to a leaderboard. </p>
 

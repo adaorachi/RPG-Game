@@ -43,7 +43,7 @@ export default class LeaderBoard extends Phaser.Scene {
     };
 
 
-    this.add.bitmapText(100, 110, 'arcade', 'RANK  SCORE   NAME').setTint(0xffffff);
+    this.add.bitmapText(100, 110, 'arcade', 'RANK  NAME   SCORE').setTint(0xffffff);
     const displayleaderBoard = (arr) => {
       const array = removeDuplicates(arr);
       for (let i = 0; i < array.length; i += 1) {
