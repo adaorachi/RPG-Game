@@ -6,6 +6,7 @@ async function getScore() {
       mode: 'cors',
     });
     if (response.ok) {
+      // eslint-disable-next-line no-unused-vars
       const jsonResponse = await response.json();
       return 'Users Stats was posted succesfully!';
     }

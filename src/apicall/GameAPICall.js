@@ -14,8 +14,6 @@ async function createAPI() {
   };
   const response = await fetch(address, settings);
   const answer = await response.json();
-
-  console.log(answer);
   return answer;
 }
 
@@ -28,7 +26,6 @@ async function getScore() {
     });
     if (response.ok) {
       const jsonResponse = await response.json();
-      console.log(jsonResponse.result);
       return jsonResponse.result;
     }
     throw new Error('Request Failed!');

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import Phaser from 'phaser';
 
 export default class Chest extends Phaser.Physics.Arcade.Image {

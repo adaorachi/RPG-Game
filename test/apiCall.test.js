@@ -1,4 +1,5 @@
-import { getScore, postScore } from './mocks/apiDataMock';
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
+import { getScore, postScore } from './mockTest/apiCallMock';
 import 'regenerator-runtime';
 
 test('Simulate a post request to Game API', () => {

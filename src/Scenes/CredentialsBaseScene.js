@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import * as Phaser from 'phaser';
 import UiButton from '../classes/UiButton';
 import {

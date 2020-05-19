@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import * as Phaser from 'phaser';
 import UiButton from '../classes/UiButton';
 
@@ -22,12 +23,9 @@ export default class CharacterSelectionScene extends Phaser.Scene {
     this.titleText.setOrigin(0.5);
     this.titleText.setFontSize(28);
 
-    // create sprites
     this.createCharacters();
 
-    // handle game resize
     this.scale.on('resize', this.resize, this);
-    // resize our game
     this.resize({ height: this.scale.height, width: this.scale.width });
   }
 
@@ -40,7 +38,7 @@ export default class CharacterSelectionScene extends Phaser.Scene {
 
     for (let j = 0; j < 3; j += 1) {
       let x = this.scale.width / 3.5;
-      const y = this.scale.height / 6 * (j + 2);
+      const y = (this.scale.height / 6) * (j + 2);
 
       for (let i = 0 + (8 * j); i < 8 + (8 * j); i += 1) {
         const character = this.add.image(x, y, 'characters', i).setInteractive();
@@ -103,8 +101,8 @@ export default class CharacterSelectionScene extends Phaser.Scene {
         xDiff = index % charactersPerRow;
       }
 
-      const x = width / 3.5 + (96 * xDiff);
-      const y = height / heightDiff * (yDiff + 2);
+      const x = (width / 3.5) + (96 * xDiff);
+      const y = (height / heightDiff) * (yDiff + 2);
       child.setPosition(x, y);
 
       if (height < 600) {

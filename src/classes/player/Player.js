@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
+
 export default class Player extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key, frame) {
     super(scene, x, y, key, frame);

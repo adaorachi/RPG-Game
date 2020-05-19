@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import * as Phaser from 'phaser';
 
 export default class BootScene extends Phaser.Scene {
@@ -6,20 +7,15 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    // load images
     this.loadImages();
-    // load spritesheets
     this.loadSpriteSheets();
-    // load audio
     this.loadAudio();
-    // load tilemap
     this.loadTileMap();
   }
 
   loadImages() {
     this.load.image('button1', 'assets/images/ui/blue_button01.png');
     this.load.image('button2', 'assets/images/ui/blue_button02.png');
-    // load the map tileset image
     this.load.image('background', 'assets/level/background-extruded.png');
     this.load.bitmapFont('arcade', 'assets/images/arcade.png', 'assets/images/arcade.xml');
 
@@ -48,7 +44,6 @@ export default class BootScene extends Phaser.Scene {
   }
 
   loadTileMap() {
-    // map made with Tiled in JSON format
     this.load.tilemapTiledJSON('map', 'assets/level/large_level.json');
   }
 

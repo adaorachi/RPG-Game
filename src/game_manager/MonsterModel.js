@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import { uuid } from 'uuidv4';
 import Utils from './utils';
 
