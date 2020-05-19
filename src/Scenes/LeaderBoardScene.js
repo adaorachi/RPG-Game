@@ -2,6 +2,7 @@
 import Phaser from 'phaser';
 import UiButton from '../classes/UiButton';
 import { getScore } from '../apicall/GameAPICall';
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import 'regenerator-runtime';
 
 export default class LeaderBoard extends Phaser.Scene {

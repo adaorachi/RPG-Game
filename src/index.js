@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import * as Phaser from 'phaser';
+// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import scenes from './scenes/scenes';
 
 const config = {
