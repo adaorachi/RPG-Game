@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import Phaser from 'phaser';
 
-function gameConfig() {
+const gameConfig = () => {
   const config = {
     type: Phaser.AUTO,
     physics: {
@@ -19,20 +19,26 @@ function gameConfig() {
       mode: Phaser.Scale.RESIZE,
       parent: 'phaser-game',
     },
+    scene: [
+      'BootScene',
+      'TitleScene',
+      'OptionScene',
+      'HowToPlayScene',
+      'LeaderBoardScene',
+      'GameScene',
+      'UiScene',
+      'LoginScene',
+      'SignUpScene',
+      'ForgotPasswordScene',
+      'ResetPasswordScene',
+      'CharacterSelectionScene',
+    ],
     pixelArt: true,
     roundPixels: true,
   };
 
-  class Game extends Phaser.Game {
-    constructor() {
-      super(config);
-      this.scene.start('Boot');
-    }
-  }
-
-  window.onload = () => {
-    window.game = new Game();
-  };
-}
+  const game = new Phaser.Game(config);
+  return game;
+};
 
 export default gameConfig;
