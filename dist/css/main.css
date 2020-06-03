@@ -1,0 +1,63 @@
+html, body {
+  margin: 0;
+}
+
+.input-div {
+  width: 100%;
+  position: fixed;
+  bottom: calc(40%);
+  text-align: center;
+}
+
+.form-label {
+  color: white;
+  font-size: 18px;
+  display: none;
+}
+
+.login-input {
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  border: 2px solid #1ea7e1;
+  font-family: cursive;
+}
+
+@media screen and (max-height: 600px) {
+  .input-div {
+    bottom: calc(40%);
+  }
+}
+
+.chat-input {
+  position: absolute;
+  height: 30px;
+  font-size: 16px;
+  color: black;
+  font-style: italic;
+  bottom: 0px;
+  border: 2px solid #1ea7e1;
+  border-radius: 10px;
+  font-family: cursive;
+  outline: none;
+}
+
+.chat-invisible {
+  opacity: 0;
+}
+
+.chat-visible {
+  opacity: 1;
+}
+
+.chat-bottom {
+  left: px;
+  width: 100%;
+}
+
+.chat-sidebar {
+  right: 0px;
+  width: 300px;
+}
